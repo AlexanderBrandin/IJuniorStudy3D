@@ -383,10 +383,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3337e2ec6bed75449100fc7b1a6a256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CyclicUniformScaler
-  scaleSpeed: 3
-  minScale: 1
-  maxScale: 2
-  startDirection: 0
+  _scaleSpeed: 3
+  _minScale: 1
+  _maxScale: 2
+  _startDirection: 0
 --- !u!1 &535578115
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805b0626736f52f49877aa3b3ce02225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::YAxisRotator
-  rotationSpeed: 90
+  _rotationSpeed: 90
 --- !u!1 &1379530385
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805b0626736f52f49877aa3b3ce02225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::YAxisRotator
-  rotationSpeed: 45
+  _rotationSpeed: 45
 --- !u!114 &1379530391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,10 +653,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3337e2ec6bed75449100fc7b1a6a256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CyclicUniformScaler
-  scaleSpeed: 3
-  minScale: 1
-  maxScale: 2
-  startDirection: 0
+  _scaleSpeed: 3
+  _minScale: 1
+  _maxScale: 2
+  _startDirection: 0
 --- !u!114 &1379530392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,10 +669,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4640c15825e01b2448adde43c037935b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CyclicForwardMover
-  speed: 3
-  distance: 5
-  canMoveBackward: 0
-  startDirection: 0
+  _speed: 3
+  _distance: 5
+  _canMoveBackward: 0
+  _startDirection: 0
 --- !u!1 &1651447302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,10 +1018,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4640c15825e01b2448adde43c037935b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CyclicForwardMover
-  speed: 3
-  distance: 5
-  canMoveBackward: 1
-  startDirection: 0
+  _speed: 3
+  _distance: 5
+  _canMoveBackward: 1
+  _startDirection: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

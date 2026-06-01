@@ -8,17 +8,17 @@ public class CyclicForwardMover : MonoBehaviour
         Backward
     }
 
-    [SerializeField] private float speed;
-    [SerializeField] private float distance;
-    [SerializeField] private bool canMoveBackward;
-    [SerializeField] private MovementDirection startDirection;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _distance;
+    [SerializeField] private bool _canMoveBackward;
+    [SerializeField] private MovementDirection _startDirection;
 
     private MovementDirection _currentDirection;
     private float _coveredDistance;
 
     private void Awake()
     {
-        _currentDirection = startDirection;
+        _currentDirection = _startDirection;
     }
 
     private void Update()
@@ -28,17 +28,17 @@ public class CyclicForwardMover : MonoBehaviour
 
     private void Move()
     {
-        float step = speed * Time.deltaTime;
+        float step = _speed * Time.deltaTime;
         Vector3 direction = GetDirection();
 
         transform.Translate(direction * step);
         _coveredDistance += step;
 
-        if (_coveredDistance >= distance)
+        if (_coveredDistance >= _distance)
         {
             ResetDistance();
 
-            if (canMoveBackward)
+            if (_canMoveBackward)
                 ChangeDirection();
         }
     }

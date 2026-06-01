@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class YAxisRotator : MonoBehaviour
 {
-    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float _rotationSpeed;
 
     private void Update()
     {
@@ -11,6 +11,6 @@ public class YAxisRotator : MonoBehaviour
 
     private void Rotate()
     {
-        transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up * _rotationSpeed * Time.deltaTime);
     }
 }
