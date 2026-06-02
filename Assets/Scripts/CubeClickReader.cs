@@ -15,10 +15,10 @@ public class CubeClickReader : MonoBehaviour
             return;
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
-            TryClick();
+            TryReadClick();
     }
 
-    private void TryClick()
+    private void TryReadClick()
     {
         Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
