@@ -1,34 +1,31 @@
+using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Counter : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _counterText;
+    public event Action<int> ValueChanged;
+
+    [SerializeField] private CounterInputReader _inputReader;
     [SerializeField] private float _delay;
     [SerializeField] private int _incrementValue;
-    [SerializeField] private string _counterPrefix;
 
     private int _value;
     private Coroutine _countingCoroutine;
 
-    private void Awake()
+    private void OnEnable()
     {
-        UpdateCounterText();
+        _inputReader.Clicked += ToggleCounting;
     }
 
-    private void Update()
+    private void Start()
     {
-        if (Mouse.current == null)
-            return;
-
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-            ToggleCounting();
+        ValueChanged?.Invoke(_value);
     }
 
     private void OnDisable()
     {
+        _inputReader.Clicked -= ToggleCounting;
         StopCounting();
     }
 
@@ -61,15 +58,7 @@ public class Counter : MonoBehaviour
             yield return new WaitForSeconds(_delay);
 
             _value += _incrementValue;
-            UpdateCounterText();
+            ValueChanged?.Invoke(_value);
         }
-    }
-
-    private void UpdateCounterText()
-    {
-        if (_counterText == null)
-            return;
-
-        _counterText.text = $"{_counterPrefix}{_value}";
     }
 }
