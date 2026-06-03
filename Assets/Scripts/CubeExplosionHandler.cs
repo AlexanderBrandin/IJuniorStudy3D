@@ -3,37 +3,47 @@ using UnityEngine;
 
 public class CubeExplosionHandler : MonoBehaviour
 {
-    [SerializeField] private CubeClickReader _clickReader;
+    [SerializeField] private MouseInputReader _inputReader;
+    [SerializeField] private CubeRaycaster _raycaster;
     [SerializeField] private CubeSpawner _spawner;
+    [SerializeField] private CubeColorizer _colorizer;
+    [SerializeField] private CubeExploder _exploder;
 
-    [SerializeField] private float _explosionForce;
-    [SerializeField] private float _explosionRadius;
-    [SerializeField] private float _upwardsModifier;
+    [SerializeField] private int _minSpawnCount;
+    [SerializeField] private int _maxSpawnCount;
+    [SerializeField] private float _scaleMultiplier;
+    [SerializeField] private float _splitChanceMultiplier;
+    [SerializeField] private float _spawnRadius;
 
     private void OnEnable()
     {
-        _clickReader.CubeClicked += HandleCubeClicked;
+        _inputReader.Clicked += HandleClicked;
     }
 
     private void OnDisable()
     {
-        _clickReader.CubeClicked -= HandleCubeClicked;
+        _inputReader.Clicked -= HandleClicked;
     }
 
-    private void HandleCubeClicked(ExplodableCube cube)
+    private void HandleClicked(Vector2 screenPosition)
     {
-        if (cube == null)
+        if (_raycaster.TryGetCube(screenPosition, out ExplodableCube cube) == false)
             return;
 
+        ExplodeCube(cube);
+    }
+
+    private void ExplodeCube(ExplodableCube cube)
+    {
         Vector3 explosionPosition = cube.transform.position;
 
         if (CanSplit(cube))
         {
-            List<Rigidbody> createdRigidbodies = _spawner.SpawnFrom(cube);
-            Explode(createdRigidbodies, explosionPosition);
+            List<Rigidbody> createdRigidbodies = SpawnCubes(cube);
+            _exploder.Explode(createdRigidbodies, explosionPosition);
         }
 
-        Destroy(cube.gameObject);
+        _spawner.Despawn(cube);
     }
 
     private bool CanSplit(ExplodableCube cube)
@@ -41,17 +51,37 @@ public class CubeExplosionHandler : MonoBehaviour
         return Random.value <= cube.SplitChance;
     }
 
-    private void Explode(List<Rigidbody> rigidbodies, Vector3 explosionPosition)
+    private List<Rigidbody> SpawnCubes(ExplodableCube parentCube)
     {
-        foreach (Rigidbody rigidbody in rigidbodies)
+        List<Rigidbody> createdRigidbodies = new List<Rigidbody>();
+
+        int spawnCount = Random.Range(_minSpawnCount, _maxSpawnCount + 1);
+        Vector3 newScale = parentCube.transform.localScale * _scaleMultiplier;
+        float newSplitChance = parentCube.SplitChance * _splitChanceMultiplier;
+
+        for (int i = 0; i < spawnCount; i++)
         {
-            rigidbody.AddExplosionForce(
-                _explosionForce,
-                explosionPosition,
-                _explosionRadius,
-                _upwardsModifier,
-                ForceMode.Impulse
+            Vector3 spawnPosition = GetSpawnPosition(parentCube.transform.position);
+            Quaternion rotation = Random.rotation;
+
+            ExplodableCube createdCube = _spawner.Spawn(
+                spawnPosition,
+                rotation,
+                newScale,
+                newSplitChance
             );
+
+            _colorizer.SetRandomColor(createdCube);
+
+            if (createdCube.TryGetComponent(out Rigidbody rigidbody))
+                createdRigidbodies.Add(rigidbody);
         }
+
+        return createdRigidbodies;
+    }
+
+    private Vector3 GetSpawnPosition(Vector3 center)
+    {
+        return center + Random.insideUnitSphere * _spawnRadius;
     }
 }

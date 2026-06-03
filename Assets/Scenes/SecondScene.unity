@@ -549,6 +549,53 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177101340}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &300194345
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300194347}
+  - component: {fileID: 300194346}
+  m_Layer: 0
+  m_Name: CubeExploder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &300194346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300194345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ed05f858e14442d978a65ad057f8caa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CubeExploder
+  _explosionForce: 7
+  _explosionRadius: 5
+  _upwardsModifier: 1
+--- !u!4 &300194347
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300194345}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 202.46399, y: 13.94271, z: 54.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &377018502
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -618,6 +665,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a45a416e5522904498ddf801a5bec60, type: 3}
+--- !u!1 &629471713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 629471715}
+  - component: {fileID: 629471714}
+  m_Layer: 0
+  m_Name: CubeColorizer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &629471714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629471713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d0f8bb60249482e8c9ff84a697d1d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CubeColorizer
+--- !u!4 &629471715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629471713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 202.46399, y: 13.94271, z: 54.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &640309729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -940,11 +1031,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e197f13f814824a9968d13d7e2ac02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CubeExplosionHandler
-  _clickReader: {fileID: 1197346120}
+  _inputReader: {fileID: 1197346120}
+  _raycaster: {fileID: 2125908024}
   _spawner: {fileID: 1235492129}
-  _explosionForce: 7
-  _explosionRadius: 5
-  _upwardsModifier: 1
+  _colorizer: {fileID: 629471714}
+  _exploder: {fileID: 300194346}
+  _minSpawnCount: 2
+  _maxSpawnCount: 6
+  _scaleMultiplier: 0.5
+  _splitChanceMultiplier: 0.5
+  _spawnRadius: 1
 --- !u!4 &756575623
 Transform:
   m_ObjectHideFlags: 0
@@ -971,7 +1067,7 @@ GameObject:
   - component: {fileID: 1197346121}
   - component: {fileID: 1197346120}
   m_Layer: 0
-  m_Name: InputReader
+  m_Name: MouseInputReader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -988,9 +1084,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80f48f6e5eea75743b2b0c801ad818f2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CubeClickReader
-  _camera: {fileID: 66324995}
-  _rayDistance: 100
+  m_EditorClassIdentifier: Assembly-CSharp::MouseInputReader
 --- !u!4 &1197346121
 Transform:
   m_ObjectHideFlags: 0
@@ -1036,11 +1130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CubeSpawner
   _cubePrefab: {fileID: 6553169784558869798, guid: 8a45a416e5522904498ddf801a5bec60, type: 3}
-  _minSpawnCount: 2
-  _maxSpawnCount: 6
-  _scaleMultiplier: 0.5
-  _splitChanceMultiplier: 0.5
-  _spawnRadius: 1
 --- !u!4 &1235492130
 Transform:
   m_ObjectHideFlags: 0
@@ -1518,6 +1607,52 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &2125908023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2125908025}
+  - component: {fileID: 2125908024}
+  m_Layer: 0
+  m_Name: CubeRaycaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2125908024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125908023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c0a1ad1d9a54bb4a4e186a2b1e24f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CubeRaycaster
+  _camera: {fileID: 66324995}
+  _rayDistance: 100
+--- !u!4 &2125908025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125908023}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 202.46399, y: 13.94271, z: 54.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6211069713596905243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1595,7 +1730,10 @@ SceneRoots:
   - {fileID: 2119930181}
   - {fileID: 1651447305}
   - {fileID: 1197346121}
+  - {fileID: 2125908025}
   - {fileID: 1235492130}
+  - {fileID: 629471715}
+  - {fileID: 300194347}
   - {fileID: 756575623}
   - {fileID: 6211069713596905243}
   - {fileID: 1419508682}
