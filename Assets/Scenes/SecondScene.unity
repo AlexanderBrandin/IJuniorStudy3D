@@ -147,8 +147,8 @@ Transform:
   m_GameObject: {fileID: 29402181}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 190, y: 9, z: 95}
-  m_LocalScale: {x: 30, y: 20, z: 1}
+  m_LocalPosition: {x: 190, y: 49, z: 95}
+  m_LocalScale: {x: 30, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2023445114}
@@ -387,7 +387,7 @@ Transform:
   m_GameObject: {fileID: 66324993}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 193, y: 20, z: 70}
+  m_LocalPosition: {x: 193, y: 40, z: 70}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -465,8 +465,8 @@ Transform:
   m_GameObject: {fileID: 177101340}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 205, y: 9, z: 80}
-  m_LocalScale: {x: 1, y: 20, z: 30}
+  m_LocalPosition: {x: 205, y: 49, z: 80}
+  m_LocalScale: {x: 1, y: 100, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2023445114}
@@ -578,8 +578,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed05f858e14442d978a65ad057f8caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CubeExploder
-  _explosionForce: 7
-  _explosionRadius: 5
+  _baseExplosionForce: 7
+  _baseExplosionRadius: 3
   _upwardsModifier: 1
 --- !u!4 &300194347
 Transform:
@@ -806,8 +806,8 @@ Transform:
   m_GameObject: {fileID: 673503662}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 175, y: 9, z: 80}
-  m_LocalScale: {x: 1, y: 20, z: 30}
+  m_LocalPosition: {x: 175, y: 49, z: 80}
+  m_LocalScale: {x: 1, y: 100, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2023445114}
@@ -918,8 +918,8 @@ Transform:
   m_GameObject: {fileID: 678889732}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 190, y: 9, z: 65}
-  m_LocalScale: {x: 30, y: 20, z: 1}
+  m_LocalPosition: {x: 190, y: 49, z: 65}
+  m_LocalScale: {x: 30, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2023445114}

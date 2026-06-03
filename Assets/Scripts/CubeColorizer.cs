@@ -4,10 +4,7 @@ public class CubeColorizer : MonoBehaviour
 {
     public void ApplyRandomColor(ExplodableCube cube)
     {
-        if (cube == null)
-            return;
-
-        if (cube.TryGetComponent(out Renderer renderer))
-            renderer.material.color = Random.ColorHSV();
+        Renderer renderer = cube.GetComponent<Renderer>();
+        renderer.material.color = Random.ColorHSV();
     }
 }

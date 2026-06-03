@@ -8,6 +8,7 @@ public class ExplodableCube : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float _splitChance;
 
     public float SplitChance => _splitChance;
+    public float Size => transform.localScale.x;
 
     public void Initialize(float splitChance)
     {

@@ -30,17 +30,22 @@ public class CubeExplosionHandler : MonoBehaviour
         if (_raycaster.TryGetCube(screenPosition, out ExplodableCube cube) == false)
             return;
 
-        ExplodeCube(cube);
+        HandleCubeExplosion(cube);
     }
 
-    private void ExplodeCube(ExplodableCube cube)
+    private void HandleCubeExplosion(ExplodableCube cube)
     {
         Vector3 explosionPosition = cube.transform.position;
+        float sourceCubeSize = cube.Size;
 
         if (CanSplit(cube))
         {
             List<Rigidbody> createdRigidbodies = SpawnCubes(cube);
-            _exploder.Explode(createdRigidbodies, explosionPosition);
+            _exploder.Explode(createdRigidbodies, explosionPosition, sourceCubeSize);
+        }
+        else
+        {
+            _exploder.ExplodeAround(explosionPosition, sourceCubeSize, cube);
         }
 
         _spawner.Despawn(cube);
