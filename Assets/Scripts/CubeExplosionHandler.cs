@@ -71,7 +71,7 @@ public class CubeExplosionHandler : MonoBehaviour
                 newSplitChance
             );
 
-            _colorizer.SetRandomColor(createdCube);
+            _colorizer.ApplyRandomColor(createdCube);
 
             if (createdCube.TryGetComponent(out Rigidbody rigidbody))
                 createdRigidbodies.Add(rigidbody);

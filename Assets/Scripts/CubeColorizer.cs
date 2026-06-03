@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CubeColorizer : MonoBehaviour
 {
-    public void SetRandomColor(ExplodableCube cube)
+    public void ApplyRandomColor(ExplodableCube cube)
     {
         if (cube == null)
             return;

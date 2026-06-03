@@ -11,9 +11,6 @@ public class CubeExploder : MonoBehaviour
     {
         foreach (Rigidbody rigidbody in rigidbodies)
         {
-            if (rigidbody == null)
-                continue;
-
             rigidbody.AddExplosionForce(
                 _explosionForce,
                 explosionPosition,
