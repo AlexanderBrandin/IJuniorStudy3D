@@ -6,14 +6,14 @@ public class Enemy : MonoBehaviour
 
     private Vector3 _direction;
 
-    public void Initialize(Vector3 direction)
-    {
-        _direction = direction.normalized;
-    }
-
     private void Update()
     {
         Move();
+    }
+
+    public void Initialize(Vector3 direction)
+    {
+        _direction = direction.normalized;
     }
 
     private void Move()
