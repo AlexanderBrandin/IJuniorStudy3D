@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private EnemySpawnPoint[] _spawnPoints;
     [SerializeField] private float _spawnDelay;
 
@@ -26,23 +25,12 @@ public class EnemySpawner : MonoBehaviour
 
         while (enabled)
         {
-            SpawnEnemy();
+            EnemySpawnPoint spawnPoint = GetRandomSpawnPoint();
+
+            spawnPoint.Spawn();
 
             yield return wait;
         }
-    }
-
-    private void SpawnEnemy()
-    {
-        EnemySpawnPoint spawnPoint = GetRandomSpawnPoint();
-
-        Enemy enemy = Instantiate(
-            _enemyPrefab,
-            spawnPoint.Position,
-            Quaternion.identity
-        );
-
-        enemy.Initialize(spawnPoint.Direction);
     }
 
     private EnemySpawnPoint GetRandomSpawnPoint()
