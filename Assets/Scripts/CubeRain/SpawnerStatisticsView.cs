@@ -3,12 +3,22 @@ using UnityEngine;
 
 public class SpawnerStatisticsView : MonoBehaviour
 {
-    [SerializeField] private ObjectSpawner _spawner;
+    [SerializeField] private MonoBehaviour _spawnerSource;
     [SerializeField] private TMP_Text _text;
     [SerializeField] private string _title;
 
+    private ISpawnerStatistics _spawner;
+
+    private void Awake()
+    {
+        _spawner = _spawnerSource as ISpawnerStatistics;
+    }
+
     private void OnEnable()
     {
+        if (_spawner == null)
+            return;
+
         _spawner.StatisticsChanged += UpdateView;
 
         UpdateView();
@@ -16,6 +26,9 @@ public class SpawnerStatisticsView : MonoBehaviour
 
     private void OnDisable()
     {
+        if (_spawner == null)
+            return;
+
         _spawner.StatisticsChanged -= UpdateView;
     }
 

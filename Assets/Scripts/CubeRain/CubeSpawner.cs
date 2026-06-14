@@ -1,41 +1,21 @@
 using System.Collections;
 using UnityEngine;
 
-public class CubeSpawner : ObjectSpawner
+public class CubeSpawner : Spawner<FallingCube>
 {
     private const float HalfSizeDivider = 2f;
 
     [SerializeField] private FallingCube _cubePrefab;
     [SerializeField] private BombSpawner _bombSpawner;
     [SerializeField] private Transform _spawnCenter;
-    [SerializeField] private Transform _poolContainer;
 
-    [SerializeField] private int _defaultCapacity;
-    [SerializeField] private int _maxSize;
     [SerializeField] private float _spawnDelay;
     [SerializeField] private Vector2 _spawnAreaSize;
     [SerializeField] private Color _startColor;
     [SerializeField] private float _minLifetime;
     [SerializeField] private float _maxLifetime;
 
-    private PooledObjectPool<FallingCube> _pool;
     private Coroutine _spawningCoroutine;
-
-    public override int TotalSpawned => _pool.TotalSpawned;
-    public override int TotalCreated => _pool.TotalCreated;
-    public override int ActiveCount => _pool.ActiveCount;
-
-    private void Awake()
-    {
-        _pool = new PooledObjectPool<FallingCube>(
-            CreateCube,
-            ActivateCube,
-            DeactivateCube,
-            DestroyCube,
-            _defaultCapacity,
-            _maxSize
-        );
-    }
 
     private void OnEnable()
     {
@@ -46,6 +26,15 @@ public class CubeSpawner : ObjectSpawner
     {
         if (_spawningCoroutine != null)
             StopCoroutine(_spawningCoroutine);
+    }
+
+    protected override FallingCube CreateObject()
+    {
+        FallingCube cube = Instantiate(_cubePrefab, PoolContainer);
+
+        cube.LifetimeExpired += HandleCubeLifetimeExpired;
+
+        return cube;
     }
 
     private IEnumerator Spawning()
@@ -62,45 +51,16 @@ public class CubeSpawner : ObjectSpawner
 
     private void Spawn()
     {
-        FallingCube cube = _pool.Get(GetRandomSpawnPosition(), Random.rotation);
+        FallingCube cube = GetObject(GetRandomSpawnPosition(), Random.rotation);
 
         cube.Initialize(_startColor, _minLifetime, _maxLifetime);
-
-        NotifyStatisticsChanged();
-    }
-
-    private FallingCube CreateCube()
-    {
-        FallingCube cube = Instantiate(_cubePrefab, _poolContainer);
-
-        cube.LifetimeExpired += HandleCubeLifetimeExpired;
-
-        return cube;
-    }
-
-    private void ActivateCube(FallingCube cube)
-    {
-        cube.gameObject.SetActive(true);
-    }
-
-    private void DeactivateCube(FallingCube cube)
-    {
-        cube.gameObject.SetActive(false);
-        cube.transform.SetParent(_poolContainer);
-    }
-
-    private void DestroyCube(FallingCube cube)
-    {
-        Destroy(cube.gameObject);
     }
 
     private void HandleCubeLifetimeExpired(FallingCube cube, Vector3 position)
     {
         _bombSpawner.Spawn(position);
 
-        _pool.Release(cube);
-
-        NotifyStatisticsChanged();
+        ReleaseObject(cube);
     }
 
     private Vector3 GetRandomSpawnPosition()
